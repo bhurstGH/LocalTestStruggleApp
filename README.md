@@ -2,6 +2,10 @@
 
 ## Create your own Slack workspace
 
+<details>
+  
+<summary>Show instructions</summary>
+  
 You should already have a Slack account and be signed in at https://slack.com.
 
 Navigate to https://slack.com/create and enter the email address that you wish to use for this workspace. You'll be asked for a confirmation number that you should receieve via email shortly.
@@ -31,6 +35,7 @@ Here are some quick steps to handle that:
 
 Your workspace is all set! Slackbot will introduce itself and you can poke around and play with whatever you like.
 
+</details>
 
 ## Create your own Slack App
 
