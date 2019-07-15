@@ -1,11 +1,9 @@
-const http = require("http")
+const express = require('express');
+const app = express()
+const axios = require('axios');
 
-const port = 3000
+const PORT = 3000
 
-const server = http.createServer((req, res) => {
-    res.end(`Every day I'm strugglin'`)
-})
+app.get('/', (req, res) => res.send("Everyday I'm Strugglin'"))
 
-server.listen(port, () => {
-    console.log(`Server listening on port ${port}`)
-})
+app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`))

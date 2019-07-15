@@ -1,6 +1,6 @@
 # Local Test Struggle App
 
-This repository is to demonstrate setting up various components for local testing of Slack app and Netlify Functions implementations. It's purpose is for those that wish to contribute to the JDSB StruggleApp/StruggleBot Slack project, but also contains basic information that would carry over to using these tools in general.
+This repository is to demonstrate setting up various components and tools that you may find useful for local testing of Slack app and Netlify Functions implementations. It's purpose is for those that wish to contribute to the JDSB StruggleApp/StruggleBot Slack project, but also contains basic information that would carry over to using these tools in general.
 
 ## Create your own Slack workspace
 
@@ -54,7 +54,13 @@ Click "Your Apps" in the upper right corner, right next to "Documentation" and "
 
 Click "Create new app" and a dialog will appear asking for a name and a workspace. Try naming your app "LocalTestStruggleApp" and selecting the workspace you created earlier. Keep in mind that while you can rename an app, it is forever tied to the workspace you choose here. Click "Create app" to continue.
 
-You should now be looking at your app's Basic Information page. Note that while your app exists, it is not yet installed to your workspace and has no functionality. Also note the App Credentials section.
+You should now be looking at your app's Basic Information page. Note that while your app exists, it is not yet installed to your workspace and has no functionality. Also take note of the App Credentials section. You'll return to these later.
+
+For now, click on "Add features and functionality" and then "Incoming Webhooks." Webhooks are one way for an outside application or request to send a message to your Slack workspace. Click the switch to activate incoming webhooks from "off" to "on" and then click "Add New Webhook to Workspace."
+
+You will then be prompted to choose a location for the webhook to post to. Since Slack creates #general in your workspace by default, choose that from the drop down menu for the sake of simplicity and click "Install." This will generate a new webhook URL and provide you with a sample curl request. Copy and paste the curl request into your terminal and your app will send the message "Hello, World!" to your #general channel.
+
+Before doing anything else with your new Slack app, move on to the next section where you'll install a helpful local testing tool.
 
 <!-- TODO: Build a slash command, integrate with Netlify/connect the dots, provide deployable example function in repo, etc -->
 
@@ -70,7 +76,7 @@ You should now be looking at your app's Basic Information page. Note that while 
 
 </details>
 
-## Ngrok
+## Install and launch ngrok
 
 <details>
 
@@ -80,34 +86,44 @@ Ngrok is a useful tool for exposing your local webserver to the internet.
 
 ### Ngrok download and setup
 
-https://ngrok.com/ and sign up for free. Using your GitHub eases this process along.
+Navigate to https://ngrok.com/ and sign up for free. Using your GitHub account eases this process along.
 
-https://dashboard.ngrok.com/get-started Follow the installation and setup steps. On Mac, you could take this approach to installation:
+After being redirected to https://dashboard.ngrok.com/get-started, follow the installation and setup steps. On Mac, you could take this approach to installation:
 
-Download the appropriate version of ngrok. From your terminal, enter this command: `unzip path/to/downloaded/nkrok.zip -d /usr/local/bin`. This uses the `-d` switch to unzip the contents of your ngrok download to the specified folder. In this case, to `/usr/local/bin`. This will allow the `ngrok` command to be used in any folder on your system. Read the top answer on [this stackexchange question](https://unix.stackexchange.com/questions/8656/usr-bin-vs-usr-local-bin-on-linux) for why you would want to put it here.
+Download the appropriate version of ngrok. From your terminal, enter this command: `unzip path/to/downloaded/nkrok.zip -d /usr/local/bin`. This uses the `-d` switch to unzip the contents of your ngrok download to the specified folder. In this case, to `/usr/local/bin`. This will allow the `ngrok` command to be used in anywhere on your system.
 
-You could, of course, also just keep it in any folder of your choice, add it to `$PATH`, or install it through a package manager like Homebrew.
+Read the top answer on [this stackexchange question](https://unix.stackexchange.com/questions/8656/usr-bin-vs-usr-local-bin-on-linux) for why you would want to put it here.
 
-The page provides the authtoken command for you to paste in to terminal in the third step, but you can retrieve your token at any time by clicking on "Auth" in the sidebar.
+You could also just keep it in any folder of your choice or install it through a package manager like Homebrew.
+
+The third step on the getting started page provides the authtoken command for you to paste in terminal, but you can retrieve your token at any time by clicking on "Auth" in the sidebar.
 
 ### Using ngrok
 
-You should now be able to type `ngrok http 3000` to open up a redirect to your localhost:3000. Ngrok will expose your local server with a randomly generated URL in the form of _randomstuff_.ngrok.io.
+You should now be able to type `ngrok http 3000` to open up a tunnel to your localhost on port 3000. Ngrok will expose your local server with a randomly generated URL in the form of _randomstuff_.ngrok.io.
 
-If you try to access this URL when you aren't currently running a local server, you will redirect to an error page. You can still observe the bad requests from your terminal running ngrok or from http://localhost:4040/inspect/http.
+If you try to navigate to this URL when not running a local server, you will redirect to an error page. You can observe the bad requests from the terminal window that is running ngrok or from http://localhost:4040/inspect/http.
 
-To truly see ngrok in action, run one of your local projects and initiate an `ngrok http [port number your run your project on]` and navigate to the URL ngrok provides. If you don't have a project handy but you've cloned this repository locally, I've provided a simple http server in Node that runs on port 3000. Run `node server.js` from this repository's directory in one terminal window, and `ngrok http 3000` in another. You should see the same result on `localhost:3000` as you do when you try to access the ngrok fowarding URL.
+To actually see ngrok in action, run one of your local projects and initiate an `ngrok http [port number your run your project on]` and navigate to the URL ngrok provides. If you don't have a project handy but you've cloned this repository, This repository provides a simple Express/Node server that runs on port 3000. Run `node server.js` from this repository's directory in one terminal window, and `ngrok http 3000` in another. You should see the same result on `localhost:3000` as you do when you access the ngrok fowarding URL.
 
-To really see the magic that is happening here, grab your mobile device and navigate to the ngrok URL. You will see your local project running there.
+_Note: you can stop your node and ngrok servers from running with `ctrl+C`._
+
+To really appreciate the magic that is happening here, grab your mobile device and navigate to the ngrok URL. You will see your local project running there. This demonstrates that your local server is open to anyone your share the ngrok URL with.
 
 ### Notes on localhost and ngrok URLs
 
-On the free account, ngrok will generate a new random URL everytime you start it up. Keep in mind these aren't permanant and that any hooks or code will have to be redirected to the new URL if you restart ngrok.
+With a free account, ngrok will generate a new random URL everytime you start it up. Keep in mind these aren't permanant and that any hooks or other outside references to the URL will have to be updated to the new URL if you restart ngrok.
 
 However, the URL will persist as long as you keep ngrok running. Feel free to start and stop your local server as many times as you like. Using the earlier example, run ngrok and navigate to the URL to be redirected to the expected error page. Next, run the server.js from this repository and reload the ngrok URL to see that it is now forwarding your local project. If you stop the Node server, the ngrok URL will return the error page on reload, but the URL will persist for the next time you start up your local server.
 
 </details>
 
-## netlify-lambda cli
+## Add a slash command to your Slack app
+
+Begin by launching ngrok with `ngrok http 3000` in its own terminal window then return to https://api.slack.com/apps and select the app you created earlier.
+
+This time, you will be selecting "Slash Commands" from either the features sidebar or the "Add features and functionality" menu.
 
 ## Netlify Dev tool
+
+## netlify-lambda cli
