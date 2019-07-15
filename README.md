@@ -1,6 +1,8 @@
 # Local Test Struggle App
 
-This repository is to demonstrate setting up various components and tools that you may find useful for local testing of Slack app and Netlify Functions implementations. It's purpose is for those that wish to contribute to the JDSB StruggleApp/StruggleBot Slack project, but also contains basic information that would carry over to using these tools in general.
+This repository acts as a guide to setting up various components and tools that you may find useful for local testing of Slack apps and Netlify Functions. It's purpose is for those that wish to contribute to the JDSB StruggleApp/StruggleBot Slack project, but also contains basic information that would carry over to using these tools in general.
+
+The README can be treated as a standalone guide, but it may assume you have cloned a local copy in order to access demonstrative tools, such as the `server.js`.
 
 ## Create your own Slack workspace
 
