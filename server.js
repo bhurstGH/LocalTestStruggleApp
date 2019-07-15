@@ -7,7 +7,7 @@ const PORT = 3000;
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => res.send("Everyday I'm Strugglin'"));
-app.post("/ltst", (req, res) => {
+app.post("/lts", (req, res) => {
     // View the data sent from Slack in console.
     console.log(req.body);
 

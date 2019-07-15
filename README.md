@@ -122,18 +122,24 @@ However, the URL will persist as long as you keep ngrok running. Feel free to st
 
 ## Add a slash command to your Slack app
 
-Begin by launching ngrok with `ngrok http 3000` in its own terminal window then return to https://api.slack.com/apps and select the app you created earlier. This time, you will be selecting "Slash Commands" from either the features sidebar or the "Add features and functionality" menu. Click the Create slash command button to get started.
+Begin by launching ngrok with `ngrok http 3000` in its own terminal window and `node server.js` in another. Return to https://api.slack.com/apps and select the app you created earlier. This time, you will be selecting "Slash Commands" from either the features sidebar or the "Add features and functionality" menu. Click the Create slash command button to get started.
 
 The well designed UI for creating a new command makes most of the options easy to understand:
 
-- Command: This is the actual slash command users will type in Slack. Try /LocalTestStruggleApp.
+- Command: This is the actual slash command users will type in Slack. Name this one `/localteststruggle`.
 - Request URL: This is the endpoint on your server that Slack will send a POST request to when the command is used.
-- Short Description: This will appear in the pop as helper text when the user types the command.
-- Usage Hint: This gives the user a hint for available parameters they can pass into the command. The autocomplete preview at the bottom of the screen helps make this a little clearer.
+  - Copy your ngrok forwarding address here and append `/lts`: `http://randomstuff.ngrok.io/lts` -- this route is already setup in the server.js.
+  - Remember that if you have stop and restart your ngrok server, a new forwarding URL will be generated and you will have to edit your slash command's Request URL.
+- Short Description: This will appear in the pop as helper text when the user types the command. Type whatever you'd like, or simply "Local Test Struggle"
+- Usage Hint: This gives the user a hint for available parameters they can pass into the command. The autocomplete preview at the bottom of the screen helps make this a little clearer. If you need your app to recieve particular arguments to work with, this is where you would clue the user in.
 
 The option to escape channels and user will send along their respective IDs instead of their actual names. The intended purpose of your command will dictate whether you want this checked or not. It can be useful to access the IDs directly to query Slack API endpoints, but leave it unchecked for now.
 
-After clicking "Save," you will return to the Slash Commands feature page. You will also be prompted to reinstall your app. This is required anytime your app needs to access a new permission scope. Follow the link and click "Reinstall App." This will return you to prompt similar to when you created a webhook earlier. Choose #general once again and click "Install."
+After clicking "Save," you will return to the Slash Commands feature page. You will also be prompted to reinstall your app. This is required anytime your app needs to access a new permission scope. Follow the link and click "Reinstall App." This will present you with a prompt similar to when you created a webhook. Choose #general once again and click "Install."
+
+Open your Slack app and type `/localstruggletest`. Your app should respond with an ephemeral message assuring you that the slash command is working. Your node server terminal should also print out the data that Slack sends to your app. Now type `/localteststruggle This will be echoed` to observe the attachment behavior, passing back the arguments given to the slash command.
+
+View the server.js file to see the code and read the comments to understand what is happening here, starting on line 10.
 
 ## Netlify Dev tool
 
