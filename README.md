@@ -122,6 +122,10 @@ However, the URL will persist as long as you keep ngrok running. Feel free to st
 
 ## Add a slash command to your Slack app
 
+<details>
+  
+  <summary>Show instructions</summary>
+  
 Begin by launching ngrok with `ngrok http 3000` in its own terminal window and `node server.js` in another. Return to https://api.slack.com/apps and select the app you created earlier. This time, you will be selecting "Slash Commands" from either the features sidebar or the "Add features and functionality" menu. Click the Create slash command button to get started.
 
 The well designed UI for creating a new command makes most of the options easy to understand:
@@ -140,6 +144,8 @@ After clicking "Save," you will return to the Slash Commands feature page. You w
 Open your Slack app and type `/localstruggletest`. Your app should respond with an ephemeral message assuring you that the slash command is working. Your node server terminal should also print out the data that Slack sends to your app. Now type `/localteststruggle This will be echoed` to observe the attachment behavior, passing back the arguments given to the slash command.
 
 View the server.js file to see the code and read the comments to understand what is happening here, starting on line 10.
+
+</details>
 
 ## Netlify Dev tool
 
