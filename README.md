@@ -29,6 +29,7 @@ Slack will prompt you to finish signing up:
 ![](../images/finishsigningup.png)
 
 Here are some quick steps to handle that:
+
 1. Set your name and password, and check whether or not to allow Slack to email you. Click next.
 1. Change your workspace name and Slack URL to something else if you'd like. Click next.
 1. Provide the email addresses of people you would like to invite, or generate an invite link. This is optional, click finish when you're done.
@@ -38,6 +39,34 @@ Your workspace is all set! Slackbot will introduce itself and you can poke aroun
 </details>
 
 ## Create your own Slack App
+
+<details>
+
+<summary>Show instructions</summary>
+
+Navigate to https://api.slack.com. This is your first stop for familiarizing yourself with the Slack api and how to work with apps and bots. Peruse the wealth of information at your leisure, but for now, let's create an app.
+
+### Create your app
+
+Click "Your Apps" in the upper right corner, right next to "Documentation" and "Tutorials". Alternatively, navigate directly to https://api.slack.com/apps.
+
+Click "Create new app" and a dialog will appear asking for a name and a workspace. Try naming your app "LTEStruggleApp" and selecting the workspace you created earlier. Keep in mind that while you can rename an app, it is forever tied to the workspace you choose here. Click "Create app" to continue.
+
+You should now be looking at your app's Basic Information page. Note that while your app exists, it is not yet installed to your workspace and has no functionality. Also note the App Credentials section.
+
+<!-- TODO: Build a slash command, integrate with Netlify/connect the dots, provide deployable example function in repo, etc -->
+
+#### Points of interest:
+
+- API References: Explore the [Web](https://api.slack.com/web), [Events](https://api.slack.com/events-api), [Conversations](https://api.slack.com/conversations-api), and [Real Time Messaging](https://api.slack.com/rtm) APIs.
+
+- [Block Kit Builder](https://api.slack.com/tools/block-kit-builder): Learn more about constructing Slack messages with their Block Kit and good ol' JSON.
+
+- [Slack Developer Tools](https://devtools.builtbyslack.com/): Special shout out to SDT. Install this in your workspace and have the Slack API docs at your fingertips with the `/sdt` command.
+
+- [Tools built by Slack](https://api.slack.com/tools): Check out tools like [Bolt](https://github.com/slackapi/bolt), the official framework for building Slack apps quickly.
+
+</details>
 
 ## netlify-lambda cli
 
