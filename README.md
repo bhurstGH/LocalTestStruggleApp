@@ -1,6 +1,6 @@
 # Local Test Struggle App
 
-This repository acts as a guide to setting up various components and tools that you may find useful for local testing of Slack apps and Netlify Functions. It's purpose is for those that wish to contribute to the JDSB StruggleApp/StruggleBot Slack project, but also contains basic information that would carry over to using these tools in general.
+This repository acts as a guide to setting up various components and tools that you may find useful for local testing of Slack apps and Netlify Functions. It's purpose is for those that wish to contribute to the [JDSB StruggleApp/StruggleBot Slack project](https://github.com/junior-dev-struggle-bus/struggle-slack-app), but also contains basic information that would carry over to using these tools in general.
 
 The README can be treated as a standalone guide, but it may assume you have cloned a local copy in order to access demonstrative assets, such as the `server.js`.
 
@@ -12,7 +12,7 @@ The README can be treated as a standalone guide, but it may assume you have clon
   
 You should already have a Slack account and be signed in at https://slack.com.
 
-Navigate to https://slack.com/create and enter the email address that you wish to use for this workspace. You'll be asked for a confirmation number that you should receieve via email shortly.
+Navigate to https://slack.com/create and enter the email address that you wish to use for this workspace. You'll be asked for a confirmation number that you should receieve via email.
 
 After entering the confirmation number, you will be asked to name your team. This will be the initial name of both your Slack workspace and the URL, e.g. "My Team" and `myteam.slack.com`. The next step requests a project that your team is working on. This will be designated as a default channel in your workspace and can be whatever you like. If you enter "My StruggleApp function", `#my-struggleapp-function` channel will be created.
 
@@ -26,7 +26,7 @@ You should now be looking at your very own workspace in the Slack browser app. I
 1. You should then be prompted to open the workspace in the Slack desktop application.
 
 A quick note on adding the workspace to your Slack mobile app:
-You should be able to access your workspaces on your mobile app by tapping the icon that looks 4 squares ina 2x2 formation. The onscreen instructions should make it fairly obvious how to add the workspace from there.
+You should be able to access your workspaces on your mobile app by tapping the icon that looks 4 squares in a 2x2 formation. The onscreen instructions should make it fairly obvious how to add the workspace from there.
 
 Slack will prompt you to finish signing up:
 
@@ -102,15 +102,15 @@ The third step on the getting started page provides the authtoken command for yo
 
 ### Using ngrok
 
-You should now be able to type `ngrok http 3000` to open up a tunnel to your localhost on port 3000. Ngrok will expose your local server with a randomly generated URL in the form of _randomstuff_.ngrok.io.
+You should now be able to type `ngrok http 3000` to open up a tunnel to your localhost on port 3000. Ngrok will expose your local server with a randomly generated URL in the form of `[randomstuff].ngrok.io`.
 
 If you try to navigate to this URL when not running a local server, you will redirect to an error page. You can observe the bad requests from the terminal window that is running ngrok or from http://localhost:4040/inspect/http.
 
-To actually see ngrok in action, run one of your local projects and initiate an `ngrok http [port number your run your project on]` and navigate to the URL ngrok provides. If you don't have a project handy but you've cloned this repository, This repository provides a simple Express/Node server that runs on port 3000. Run `node server.js` from this repository's directory in one terminal window, and `ngrok http 3000` in another. You should see the same result on `localhost:3000` as you do when you access the ngrok fowarding URL.
+To actually see ngrok in action, run one of your local projects and initiate an `ngrok http [port number your run your project on]` and navigate to the URL ngrok provides. If you don't have a project handy but you've cloned this repository, this repository provides a simple Express/Node server that runs on port 3000. Run `node server.js` from this repository's directory in one terminal window, and `ngrok http 3000` in another. You should see the same result on `localhost:3000` as you do when you access the ngrok fowarding URL.
 
 _Note: you can stop your node and ngrok servers from running with `ctrl+C`._
 
-To really appreciate the magic that is happening here, grab your mobile device and navigate to the ngrok URL. You will see your local project running there. This demonstrates that your local server is open to anyone your share the ngrok URL with.
+To really appreciate the magic that is happening here, grab your mobile device or another computer and navigate to the ngrok URL. You will see your local project running there. This demonstrates that your local server is open to anyone your share the ngrok URL with.
 
 ### Notes on localhost and ngrok URLs
 
@@ -133,20 +133,16 @@ The well designed UI for creating a new command makes most of the options easy t
 - Command: This is the actual slash command users will type in Slack. Name this one `/localteststruggle`.
 - Request URL: This is the endpoint on your server that Slack will send a POST request to when the command is used.
   - Copy your ngrok forwarding address here and append `/lts`: `http://randomstuff.ngrok.io/lts` -- this route is already setup in the server.js.
-  - Remember that if you have stop and restart your ngrok server, a new forwarding URL will be generated and you will have to edit your slash command's Request URL.
-- Short Description: This will appear in the pop as helper text when the user types the command. Type whatever you'd like, or simply "Local Test Struggle"
+  - Remember that if you stop and restart your ngrok server, a new forwarding URL will be generated and you will have to edit your slash command's Request URL.
+- Short Description: This will appear in the popup as helper text when the user types the command in Slack. Type whatever you'd like, or simply "Local Test Struggle"
 - Usage Hint: This gives the user a hint for available parameters they can pass into the command. The autocomplete preview at the bottom of the screen helps make this a little clearer. If you need your app to recieve particular arguments to work with, this is where you would clue the user in.
 
-The option to escape channels and user will send along their respective IDs instead of their actual names. The intended purpose of your command will dictate whether you want this checked or not. It can be useful to access the IDs directly to query Slack API endpoints, but leave it unchecked for now.
+The option to escape channels and usernames will send along their respective IDs instead of their actual names. The intended purpose of your command will dictate whether you want this checked or not. It can be useful to access the IDs directly to query Slack API endpoints, but leave it unchecked for now.
 
 After clicking "Save," you will return to the Slash Commands feature page. You will also be prompted to reinstall your app. This is required anytime your app needs to access a new permission scope. Follow the link and click "Reinstall App." This will present you with a prompt similar to when you created a webhook. Choose #general once again and click "Install."
 
-Open your Slack app and type `/localstruggletest`. Your app should respond with an ephemeral message assuring you that the slash command is working. Your node server terminal should also print out the data that Slack sends to your app. Now type `/localteststruggle This will be echoed` to observe the attachment behavior, passing back the arguments given to the slash command.
+Open your Slack app and type `/localteststruggle`. Your app should respond with an ephemeral message (a temporary message, visible only to the person that used the command) assuring you that the slash command is working. The terminal that is running the node server should also print out the object that Slack sends to your app so you can get an idea of how Slack passes data in it's request. Now type `/localteststruggle This will be echoed` to observe the attachment behavior, passing back the arguments given to the slash command along with the original message..
 
-View the server.js file to see the code and read the comments to understand what is happening here, starting on line 10.
+View the server.js file included in this repository to see the code and read the comments to understand what is happening here, starting on line 10.
 
 </details>
-
-## Netlify Dev tool
-
-## netlify-lambda cli
